@@ -1,0 +1,160 @@
+html,
+body,
+#map {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#listContainer {
+    right: 80px;
+    top: 56px;
+    position: absolute;
+}
+
+#listTitle {
+    width: 296px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    background-color: white;
+    border: 2px solid brown;
+}
+
+#list {
+    height: 350px;
+    background-color: white;
+    width: 296px;
+    margin-top: -2px;
+}
+
+#searchBox {
+    width: 300px;
+    position: absolute;
+    top: 16px;
+    left: 80px;
+    border-radius: 10px;
+    border: 1px solid #777777;
+  box-shadow: 2px 2px 2px #999999;
+}
+
+#searchList {
+    height: 75px;
+    width: 300px;
+    position: absolute;
+    top: 55px;
+    left: 80px;
+    background-color: white;
+}
+
+
+#searchListItem {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 8px;
+    font-size: 1em;
+}
+
+
+#list - entry {
+    padding-top: 16px;
+}
+
+li {
+    list-style-type: none;
+}
+
+li:hover {
+    background-color: #FFFFE0;
+}
+
+
+ul {
+    margin: 0px;
+    padding-left: 0px;
+    width: 296px;
+    overflow: auto;
+    border: 2px solid brown;
+}
+
+
+p {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+
+button {
+    float: right;
+    height: 20px;
+    width: 40px;
+    margin-right: 16px;
+    font-size: 10px;
+}
+
+
+h4,
+h5 {
+    display: inline;
+    margin-left: 16px;
+}
+
+hr {
+    margin: 0;
+}
+.tiles {
+    display: none;
+}
+
+
+
+@media only screen and (max-device-width: 1024px) {
+    .tiles {
+        display: block;
+        position: absolute;
+        bottom: 20px;
+        left: 10%;
+        width: 80%;
+        height: 100px;
+        background-color: white;
+        border: 1px solid #777777;
+        box-shadow: 2px 2px 2px #999999;
+        z-index: 5;
+    }
+
+    .tile p {
+        font-size: 1.5em;
+        line-height: 100px;
+        text-align: center;
+        display: block;
+        margin: 0px;
+    }
+
+    #tileList {
+        width: 100%;
+        border: none;
+        z-index: 10;
+    }
+
+    #searchBox {
+        top: 20px;
+        left: 10%;
+        width: 80%;
+        border: 1px solid #777777;
+        box-shadow: 2px 2px 2px #999999;
+    }
+
+    #listContainer {
+        visibility: hidden;
+    }
+
+    #searchList {
+        left: 10%;
+        width: 80%;
+    }
+}
+
+@media only screen and(max-device-width: 640px) {
+    .tile p {
+        font-size: 1.5em;
+    }
+}
