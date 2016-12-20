@@ -1,7 +1,38 @@
+/*  This function is called when script is first loaded,to check
+to see if screen size is less than 1024px */
+function initialize() {
+    var mapOptions;
+    if ( $(window).width() < 1024) {
+        mapOptions = {
+            center: {
+                lat: 8.5241,
+                lng: 76.9366
+            },
+            zoom: 10,
+            disableDefaultUI: true
+        };
+    } else {
+        mapOptions = {
+            center: {
+                lat: 8.5241,
+                lng: 76.9366
+            },
+            zoom: 12
+        };
+    }
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    var vm = new viewModel();
+    ko.applyBindings(vm);
+}
+
+
+
+
 //ViewModel
 function viewModel() {
     // variables
     var self = this;
+
     var map;
     var markers = [];
     var searchQueryfirstLetter;
@@ -15,6 +46,22 @@ function viewModel() {
     self.markerArray = ko.observableArray(new model().churchesOfTvmArray);
     self.searchListArray = ko.observableArray();
     self.listArray = ko.observableArray([]);
+    /*  function to show the markers on the view when app is first loaded
+        and when self.searchQuery is empty */
+    function setupMarkers() {
+        for (var i = 0; i < self.markerArray().length; i++) {
+            var marker = new google.maps.Marker({
+                position: self.markerArray()[i].cords,
+                map: map,
+                title: self.markerArray()[i].description,
+                type: self.markerArray()[i].type,
+                wikiPageHeader: self.markerArray()[i].wikiURL,
+                wikiText: ""
+            });
+            markers.push(marker);
+            wikipediaDescription(marker);
+        }
+    }
     //Auto complete search for the search bar
     self.searchQuery.subscribe(function() {
         //return an array from searchModel.autoCompleteSearchArray object in the model.js file
@@ -128,49 +175,9 @@ localStorage.removeItem('alerted');
     }
 
 
-    /*  This function is called when script is first loaded,to check
-    to see if screen size is less than 1024px */
-    function initialize() {
-        var mapOptions;
-        if ( $(window).width() < 1024) {
-            mapOptions = {
-                center: {
-                    lat: 8.5241,
-                    lng: 76.9366
-                },
-                zoom: 10,
-                disableDefaultUI: true
-            };
-        } else {
-            mapOptions = {
-                center: {
-                    lat: 8.5241,
-                    lng: 76.9366
-                },
-                zoom: 12
-            };
-        }
-        map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        setupMarkers();
-    }
 
-    /*  function to show the markers on the view when app is first loaded
-        and when self.searchQuery is empty */
 
-    function setupMarkers() {
-        for (var i = 0; i < self.markerArray().length; i++) {
-            var marker = new google.maps.Marker({
-                position: self.markerArray()[i].cords,
-                map: map,
-                title: self.markerArray()[i].description,
-                type: self.markerArray()[i].type,
-                wikiPageHeader: self.markerArray()[i].wikiURL,
-                wikiText: ""
-            });
-            markers.push(marker);
-            wikipediaDescription(marker);
-        }
-    }
+
 
 
     // Function performs ajax request to Wikipedia
@@ -229,13 +236,7 @@ localStorage.removeItem('alerted');
 
     }
 
-    // Function is called to start the app
-    initialize();
-
 }
-
-ko.applyBindings(new viewModel());
-
 
 function googleError(){
   alert("Sorry, We are experiencing trouble loading the Google Maps");
